@@ -13,6 +13,7 @@ import Schedule from "./views/admin/Schedule/Schedule";
 import ReportList from "./views/admin/Report/ReportList";
 import UserList from "./views/admin/User/UserList";
 import HourList from "./views/admin/Hour/HourList";
+import FAQIndex from "./views/FAQIndex";
 
 Vue.use(Router);
 
@@ -97,6 +98,15 @@ export default new Router({
         }
       ]
     },
+    {
+      path: "/faq",
+      name: "faq_index",
+      components: {
+        header: AppHeader,
+        default: FAQIndex,
+        footer: AppFooter
+      },
+    }
   ],
   scrollBehavior: to => {
     if (to.hash) {
