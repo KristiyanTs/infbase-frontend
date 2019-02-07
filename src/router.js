@@ -6,6 +6,7 @@ import Landing from "./views/Landing.vue";
 import Login from "./views/Login.vue";
 import Register from "./views/Register.vue";
 import Profile from "./views/Profile.vue";
+import FAQIndex from "./views/FAQIndex";
 
 Vue.use(Router);
 
@@ -48,7 +49,16 @@ export default new Router({
         header: AppHeader,
         default: Profile,
         footer: AppFooter
-      }
+      },
+    },
+    {
+      path: "/faq",
+      name: "faq_index",
+      components: {
+        header: AppHeader,
+        default: FAQIndex,
+        footer: AppFooter
+      },
     }
   ],
   scrollBehavior: to => {
