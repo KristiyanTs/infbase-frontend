@@ -1,12 +1,12 @@
 <template>
     <section class="section section-lg">
         <div class="container" v-for="question in questions">
-            <question-list-item question="question"></question-list-item>
+            <question-list-item :question="question"></question-list-item>
         </div>
     </section>
 </template>
 <script>
-  import QuestionListItem from './QuestionListItem'
+  import QuestionListItem from '../../components/FAQ/QuestionListItem'
 
   export default {
     components: {
@@ -15,17 +15,17 @@
     mounted: function () {
       this.fetchData()
     },
-    data: {
-      questions: []
+    data: function () {
+      return {
+        questions: []
+      }
     },
     methods: {
       fetchData: function () {
         let v = this;
         this.axios.get('/api/questions').then(function (response) {
-          console.log(response);
-          v.data.questions = response;
+          v.questions = response.data;
         });
-        console.log("im loaded now")
       }
     }
   };
