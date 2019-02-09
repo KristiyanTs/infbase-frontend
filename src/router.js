@@ -59,6 +59,15 @@ export default new Router({
         default: FAQIndex,
         footer: AppFooter
       },
+    },
+    {
+      path: "/faq/:id",
+      name: "faq_detail",
+      components: {
+        header: AppHeader,
+        default: FAQIndex,
+        footer: AppFooter
+      },
     }
   ],
   scrollBehavior: to => {

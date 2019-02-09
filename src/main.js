@@ -11,6 +11,7 @@ import VueAxios from 'vue-axios';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faCaretLeft, faCaretRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import Vue2Filters from 'vue2-filters'
 
 library.add({ faCaretLeft, faCaretRight });
 
@@ -20,6 +21,8 @@ Vue.use(Vuex);
 Vue.use(Argon);
 Vue.use(VueAxios, axios);
 Vue.use(require('vue-cookies'));
+Vue.use(Vue2Filters);
+
 
 Vue.config.productionTip = false
 Vue.use(VueAxios, {

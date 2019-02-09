@@ -19,6 +19,7 @@
     "vue-cookies": "^1.5.12",
     "vue-lazyload": "^1.2.6",
     "vue-router": "^3.0.1",
+    "vue2-filters": "^0.4.1",
     "vue2-transitions": "^0.2.3",
     "vuex": "^3.0.1"
   },
