@@ -1,10 +1,10 @@
 <template>
-    <div>
+    <section class="section">
         <QuestionList></QuestionList>
-    </div>
+    </section>
 </template>
 <script>
-import QuestionList from "./components/QuestionList";
+import QuestionList from "../components/QuestionList";
 
 export default {
   name: "faq_index",

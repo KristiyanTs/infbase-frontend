@@ -13,7 +13,8 @@ import Schedule from "./views/admin/Schedule/Schedule";
 import ReportList from "./views/admin/Report/ReportList";
 import UserList from "./views/admin/User/UserList";
 import HourList from "./views/admin/Hour/HourList";
-import FAQIndex from "./views/FAQIndex";
+import FAQIndex from "./views/FAQ/FAQIndex";
+import FAQQuestionView from "./views/FAQ/FAQQuestionView";
 
 Vue.use(Router);
 
@@ -112,7 +113,7 @@ export default new Router({
       name: "faq_detail",
       components: {
         header: AppHeader,
-        default: FAQIndex,
+        default: FAQQuestionView,
         footer: AppFooter
       },
     }
