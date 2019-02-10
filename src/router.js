@@ -6,7 +6,8 @@ import Landing from "./views/Landing.vue";
 import Login from "./views/Login.vue";
 import Register from "./views/Register.vue";
 import Profile from "./views/Profile.vue";
-import FAQIndex from "./views/FAQIndex";
+import FAQIndex from "./views/FAQ/FAQIndex";
+import FAQQuestionView from "./views/FAQ/FAQQuestionView";
 
 Vue.use(Router);
 
@@ -65,7 +66,7 @@ export default new Router({
       name: "faq_detail",
       components: {
         header: AppHeader,
-        default: FAQIndex,
+        default: FAQQuestionView,
         footer: AppFooter
       },
     }

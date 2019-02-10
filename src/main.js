@@ -22,6 +22,7 @@ Vue.use(Argon);
 Vue.use(VueAxios, axios);
 Vue.use(require('vue-cookies'));
 Vue.use(Vue2Filters);
+Vue.use(require('vue-moment'));
 
 
 Vue.config.productionTip = false

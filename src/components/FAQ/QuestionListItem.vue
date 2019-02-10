@@ -1,5 +1,5 @@
 <template>
-    <div class="question narrow" id="question-summary-54605117">
+    <div class="question narrow">
         <div class="summary">
             <h3>
                 <router-link :to="{name: 'faq_detail', params: { id: question.id }}" >{{question.title}}</router-link>
@@ -22,11 +22,6 @@
     props: {
       question: Object
     },
-    computed:{
-      questionClick: function(){
-        return "/faq/" + this.question.id
-      }
-    }
   };
 </script>
 <style>
