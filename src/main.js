@@ -13,6 +13,7 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { faCaretLeft, faCaretRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import Vue2Filters from 'vue2-filters'
+import vSelect from 'vue-select';
 
 library.add({ faCaretLeft, faCaretRight });
 
@@ -25,6 +26,8 @@ Vue.use(require("vue-cookies"));
 Vue.use(DisableAutocomplete);
 Vue.use(Vue2Filters);
 Vue.use(require('vue-moment'));
+Vue.component('v-select', vSelect);
+
 
 
 Vue.config.productionTip = false;
