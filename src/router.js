@@ -8,6 +8,7 @@ import Register from "./views/Register.vue";
 import Profile from "./views/Profile.vue";
 import FAQIndex from "./views/FAQ/FAQIndex";
 import FAQQuestionView from "./views/FAQ/FAQQuestionView";
+import FAQAsk from "./views/FAQ/FAQAsk";
 
 Vue.use(Router);
 
@@ -58,6 +59,15 @@ export default new Router({
       components: {
         header: AppHeader,
         default: FAQIndex,
+        footer: AppFooter
+      },
+    },
+    {
+      path: "/faq/ask",
+      name: "faq_ask",
+      components: {
+        header: AppHeader,
+        default: FAQAsk,
         footer: AppFooter
       },
     },
