@@ -18,7 +18,7 @@
 				<h5 class="p-5">Loading...</h5>
 			</tbody>
 			<tbody v-else>
-				<SessionRow v-for="hour in hours" 
+				<ScheduleRow v-for="hour in hours" 
 										:key="hour.id"
 										:sessions="sessions"
 										:tutors="tutors" 
@@ -30,13 +30,13 @@
 </template>
 
 <script>
-	import SessionRow from './ScheduleRow';
+	import ScheduleRow from './ScheduleRow';
 	import ScheduleHead from '@/views/components/Schedule/ScheduleHead';
 	import BaseDropdown from '@/components/BaseDropdown';
 
 	export default {
 		components: {
-			SessionRow,
+			ScheduleRow,
 			ScheduleHead,
 			BaseDropdown
 		},

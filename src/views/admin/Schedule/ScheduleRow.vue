@@ -2,7 +2,7 @@
 	<tr class="row">
 		<td class="col-1">{{ hour.start }}</td>
 		<td class="col" v-for="day in range" :key="day.join('.')" >
-			<SessionSlot :hour="hour" :day="day" :session_prop="findSession(day)" :tutors="tutors" />
+			<SessionSlot :hour="hour" :day="day" :session_prop="findSession(day.join('.'))" :tutors="tutors" />
 		</td>
 		<td class="col-1"></td>
 	</tr>
@@ -40,11 +40,10 @@
 		methods: {
 			findSession (day) {
 				let hour_id = this.hour.id;
-				day = day.join('-');
 
 				return this.sessions.find(session => 
 					session.hour_id == hour_id && 
-					session.start_date.replace(/\b0+/g, '') == day
+					session.start_date == day
 				);
 			}
 		}
