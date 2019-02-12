@@ -81,14 +81,13 @@
 			},
 			submitCourse () {
 		    this.axios
-		      .post('/api/courses', {
-	          headers: { Authorization: window.$cookies.get("jwt") },
+		      .post('/api/admin/courses', {
 	          course: {
 	          	name: this.new_course_name
 	          }
 	        })
 		      .then(response => {
-		      	this.getCourses();
+						this.courses.push(response.data);
 		      	this.modal = false;
 		      	this.$store.commit("ADD_ALERT", [`Course ${this.new_course_name} successfully created.`, "success"]);
 		      })

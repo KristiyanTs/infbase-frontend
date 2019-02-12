@@ -9,6 +9,9 @@
 			  <router-link to="/admin-panel/users" class="nav-link mb-1">Users</router-link>
 			  <router-link to="/admin-panel/courses" class="nav-link mb-1">Courses</router-link>
 			  <router-link to="/admin-panel/hours" class="nav-link mb-1">Hours</router-link>
+			  <router-link v-if="userRole == 'tutor'"
+										 to="/admin-panel/expertises" 
+										 class="nav-link mb-1">Expertises</router-link>
 			</div>
 			<fade-transition mode="out-in" name="fade" :duration="300">
 				<card shadow class="tab-content col-lg-10 d-inline-block p-3 router-card">
@@ -28,6 +31,11 @@
 		},
 		data() {
 			return {}
+		},
+		computed: {
+			userRole () {
+				return this.$store.state.userRole;
+			}
 		}
 	}
 </script>

@@ -49,8 +49,8 @@
 </template>
 
 <script>
-	import Modal from "@/components/Modal";
-	import BaseInput from "@/components/BaseInput";
+	import Modal from '@/components/Modal';
+	import BaseInput from '@/components/BaseInput';
 
 	export default {
 		components: {
@@ -61,7 +61,7 @@
 			course: {
 				type: Object,
 				default: null,
-				description: "A course object",
+				description: 'A course object',
 			}
 		},
 		data() {
@@ -88,7 +88,7 @@
 			},
 			deleteCourse () {
         this.axios
-          .delete(`/api/courses/${this.course.id}`)
+          .delete(`/api/admin/courses/${this.course.id}`)
           .then(response => {
             this.deleteSuccessful(response);
           })
@@ -97,19 +97,19 @@
 			editSuccessful (response) {
 				this.course.name = this.name;
 				this.modal = false;
-				this.$store.commit("ADD_ALERT", ["Course successfully edited.", "success"]);
+				this.$store.commit('ADD_ALERT', ['Course successfully edited.', 'success']);
 			},
 			editFailed (error) {
 
 			},
 			deleteSuccessful (response) {
-				this.$store.commit("ADD_ALERT", [`Course ${this.name} deleted.`, "success"]);
+				this.$store.commit('ADD_ALERT', [`Course ${this.name} deleted.`, 'success']);
 				this.modal2 = false;
 				this.modal = false;
 				this.deleted = true;
 			},
 			deleteFailed (error) {
-				this.$store.commit("ADD_ALERT", ["Something went wrong.", "warning"]);
+				this.$store.commit('ADD_ALERT', ['Something went wrong.', 'warning']);
 			}
 		}
 	}

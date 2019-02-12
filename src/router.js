@@ -7,12 +7,13 @@ import Login from "./views/Login";
 import Signup from "./views/Signup";
 import ResetPassword from "./views/ResetPassword";
 import Profile from "./views/Profile";
-import AdminPanel from "./views/AdminPanel";
+import AdminPanel from "./views/admin/AdminPanel";
 import CourseList from "./views/admin/Course/CourseList";
 import Schedule from "./views/admin/Schedule/Schedule";
 import ReportList from "./views/admin/Report/ReportList";
 import UserList from "./views/admin/User/UserList";
 import HourList from "./views/admin/Hour/HourList";
+import ExpertiseList from "./views/admin/Expertise/ExpertiseList";
 
 Vue.use(Router);
 
@@ -94,6 +95,10 @@ export default new Router({
         {
           path: 'hours',
           component: HourList
+        },
+        {
+          path: 'expertises',
+          component: ExpertiseList
         }
       ]
     },
