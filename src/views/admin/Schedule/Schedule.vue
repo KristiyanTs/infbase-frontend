@@ -33,7 +33,8 @@
 									 :day_prop="day"
 									 :hour_prop="hour"
 									 :modal_prop="modal"
-									 @closeModal="closeModal"/>
+									 @closeModal="closeModal"
+									 @modified="modifySessions"/>
 	</div>
 </template>
 
@@ -122,12 +123,22 @@
 				this.calendar_range = range;
 				this.getSessionsInRange();
 			},
+			modifySessions(session, action) {
+				let old_session = this.session;
+				let idx = this.sessions.find(sess => sess.id == old_session.id);
+
+				if (action == 'created')
+					this.sessions.push(session);
+				else if(action == 'updated') 
+					this.sessions.splice(idx, 1, session);
+				else 
+					this.sessions.splice(idx, 1);
+			},
 			openModal (session, day, hour) {
 				[this.session, this.day, this.hour] = [session, day, hour];
 				this.modal = true;
 			},
 			closeModal () {
-				console.log('close modal 2');
 				this.modal = false;
 			}
 		}

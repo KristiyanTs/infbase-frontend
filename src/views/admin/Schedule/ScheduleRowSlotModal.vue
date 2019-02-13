@@ -74,20 +74,20 @@ export default {
   methods: {
     submitSession () {
       // new session
-      if (!this.session_prop)
+      if (!this.session)
         this.axios
           .post('/api/admin/teaching_sessions', {
             session: {
               tutor_id: this.tutor.id,
-              hour_id: this.hour.id,
-              start_date: this.day.join('-')
+              hour_id: this.hour_prop.id,
+              start_date: this.day_prop.join('-')
             },
             occurrence: this.occurrence
           })
           .then(response => {
-            this.createSuccessful(response);
+            this.modifySuccessful(response, 'created');
           })
-          .catch(error => this.createFailed(error))
+          .catch(error => this.modifyFailed(error))
         
       //edit session
       else if (this.tutor)
@@ -95,15 +95,15 @@ export default {
           .put(`/api/admin/teaching_sessions/${this.session.id}`, {
             session: {
               tutor_id: this.tutor.id,
-              hour_id: this.hour.id,
-              start_date: this.day.join('-')
+              hour_id: this.hour_prop.id,
+              start_date: this.day_prop.join('-')
             },
             occurrence: this.occurrence
           })
           .then(response => {
-            this.createSuccessful(response);
+            this.modifySuccessful(response, 'updated');
           })
-          .catch(error => this.createFailed(error))
+          .catch(error => this.modifyFailed(error))
 
       // destroy session
       else 
@@ -112,12 +112,20 @@ export default {
             occurrence: this.occurrence
           })
           .then(response => {
-            this.createSuccessful(response);
+            this.modifySuccessful(this.session, 'deleted');
           })
-          .catch(error => this.createFailed(error))
+          .catch(error => this.modifyFailed())
+    },
+    modifySuccessful (response, action) {
+      this.$store.commit('ADD_ALERT', [`Session slot ${action} successfully.`, 'success']);
+      this.$emit('modified', response.data, action);
+      this.closeModal();
+    },
+    modifyFailed() {
+      this.$store.commit('ADD_ALERT', ['Something went wrong.', 'warning']);
+      this.closeModal();
     },
     closeModal () {
-      console.log('closeModal');
       this.$emit('closeModal');
     }
   },
@@ -129,6 +137,7 @@ export default {
   },
   watch: {
     session_prop () {
+      [this.session, this.tutor] = [null, null];
       this.session = this.session_prop;
       this.tutor = this.tutors.find(tutor => tutor.id == this.session.tutor_id)
     }
