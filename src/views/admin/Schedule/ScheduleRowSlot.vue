@@ -117,7 +117,7 @@
 						.catch(error => this.createFailed(error))
 			},
 			createSuccessful (response) {
-				this.session = response;
+				this.session = response.data;
 				this.modal = false;
 			},
 			createFailed (error) {

@@ -23,7 +23,7 @@ export default {
   methods: {
     deleteExpertise () {
       this.axios
-        .delete(`/api/admin/expertise/${this.expertise.id}`)
+        .delete(`/api/admin/expertises/${this.expertise.id}`)
         .then(response => {
           this.deleteSuccessful(response);
         })

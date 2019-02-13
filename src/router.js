@@ -11,6 +11,7 @@ import AdminPanel from "./views/admin/AdminPanel";
 import CourseList from "./views/admin/Course/CourseList";
 import Schedule from "./views/admin/Schedule/Schedule";
 import ReportList from "./views/admin/Report/ReportList";
+import ReportForm from "./views/admin/Report/ReportForm";
 import UserList from "./views/admin/User/UserList";
 import HourList from "./views/admin/Hour/HourList";
 import ExpertiseList from "./views/admin/Expertise/ExpertiseList";
@@ -77,27 +78,31 @@ export default new Router({
       },
       children: [
         {
-          path: 'schedule',
+          path: "schedule",
           component: Schedule
         },
         {
-          path: 'reports',
+          path: "reports",
           component: ReportList
         },
         {
-          path: 'users',
+          path: "report/:id",
+          component: ReportForm
+        },
+        {
+          path: "users",
           component: UserList
         },
         {
-          path: 'courses',
+          path: "courses",
           component: CourseList
         },
         {
-          path: 'hours',
+          path: "hours",
           component: HourList
         },
         {
-          path: 'expertises',
+          path: "expertises",
           component: ExpertiseList
         }
       ]

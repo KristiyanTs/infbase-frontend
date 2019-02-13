@@ -95,7 +95,7 @@
 			},
 			submit () {
 		    this.axios
-		      .post('/api/admin/expertise', {
+		      .post('/api/admin/expertises', {
 	          headers: { Authorization: window.$cookies.get('jwt') },
 	          expertise: {
               course_id: this.course.id,
