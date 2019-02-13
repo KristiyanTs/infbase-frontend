@@ -1,8 +1,8 @@
 <template>
 	<tr class="row">
 		<td class="col-1">{{ hour.start }}</td>
-		<td class="col" v-for="day in range" :key="day.join('.')" >
-			<SessionSlot :hour="hour" :day="day" :session_prop="findSession(day.join('.'))" :tutors="tutors" />
+		<td class="col" v-for="day in range" :key="day[2]" >
+			<SessionSlot :hour="hour" :day="day" :session_prop="findSession(day.join('.'))" @clicked="emitClick" />
 		</td>
 		<td class="col-1"></td>
 	</tr>
@@ -21,20 +21,15 @@
 				default: () => [],
 				description: "Array of the sessions objects."
 			},
-			range: {
-				type: Array,
-				default: () => [],
-				description: "Day range to show"
-			},
 			hour: {
 				type: Object,
 				default: () => {},
 				description: "What time to show"
 			},
-			tutors: {
+			range: {
 				type: Array,
 				default: () => [],
-				description: "Array of the available tutors"
+				description: "Day range to show"
 			}
 		},
 		methods: {
@@ -45,6 +40,9 @@
 					session.hour_id == hour_id && 
 					session.start_date == day
 				);
+			},
+			emitClick (session_prop, day, hour) {
+				this.$emit('clicked', session_prop, day, hour);
 			}
 		}
 	}

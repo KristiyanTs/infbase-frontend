@@ -82,7 +82,7 @@
 				this.loading = true;
 
 		    this.axios
-		      .get('/api/admin/expertise', {
+		      .get('/api/admin/expertises', {
 	          headers: { Authorization: window.$cookies.get('jwt') }
 	        })
 		      .then(response => {

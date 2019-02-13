@@ -5,27 +5,35 @@
 			<base-button slot="title" type="secondary" class="dropdown-toggle">
 				{{ calendar_scope }} days
 			</base-button>
-			<a class="dropdown-item" @click="calendar_scope = 3">3 days</a>
-			<a class="dropdown-item" @click="calendar_scope = 5">5 days</a>
-			<a class="dropdown-item" @click="calendar_scope = 7">7 days (slow loading)</a>
+			<a class="dropdown-item" v-for="days in [3,5,7]" :key="days"
+				 @click="calendar_scope = days">
+				{{days}} days
+			</a>
 		</base-dropdown>
+		
 		<section v-if="errored">
 			<p>We're sorry, we're not able to retrieve this information at the moment, please try back later</p>
 		</section>
 		<table class="table text-center" v-else>
 			<ScheduleHead :calendar_range="calendar_range" :scope="calendar_scope" @range="changeRange"/>
-			<tbody v-if="loading">
-				<h5 class="p-5">Loading...</h5>
-			</tbody>
+			<section v-if="loading">
+				<p class="p-5">Loading...</p>
+			</section>
 			<tbody v-else>
 				<ScheduleRow v-for="hour in hours" 
 										:key="hour.id"
 										:sessions="sessions"
-										:tutors="tutors" 
 										:hour="hour" 
-										:range="calendar_range"/>
+										:range="calendar_range"
+										@clicked="openModal"/>
 			</tbody>
 		</table>
+		<ScheduleModal :tutors="tutors" 
+									 :session_prop="session" 
+									 :day_prop="day"
+									 :hour_prop="hour"
+									 :modal_prop="modal"
+									 @closeModal="closeModal"/>
 	</div>
 </template>
 
@@ -33,12 +41,14 @@
 	import ScheduleRow from './ScheduleRow';
 	import ScheduleHead from '@/views/components/Schedule/ScheduleHead';
 	import BaseDropdown from '@/components/BaseDropdown';
+	import ScheduleModal from './ScheduleRowSlotModal';
 
 	export default {
 		components: {
 			ScheduleRow,
 			ScheduleHead,
-			BaseDropdown
+			BaseDropdown,
+			ScheduleModal
 		},
 		props: {
 			scope: {
@@ -49,14 +59,17 @@
 		},
 		data () {
 			return {
+				modal: false,
 				loading: true,
 				errored: false,
-				calendar_start: null,
 				calendar_range: [],
 				calendar_scope: this.scope,
 				hours: [],
 				sessions: [],
-				tutors: []
+				tutors: [],
+				session: null,
+				day: null,
+				hour: null
 			}
 		},
 		mounted () {
@@ -106,9 +119,16 @@
 	        .finally(() => this.loading = false)
 			},
 			changeRange (range) {
-				this.calendar_start = range[0];
 				this.calendar_range = range;
 				this.getSessionsInRange();
+			},
+			openModal (session, day, hour) {
+				[this.session, this.day, this.hour] = [session, day, hour];
+				this.modal = true;
+			},
+			closeModal () {
+				console.log('close modal 2');
+				this.modal = false;
 			}
 		}
 	}
