@@ -6,7 +6,7 @@
 		    <base-alert type="warning" v-if="errors">
 					{{errors}}
 		    </base-alert>
-				<v-select label="last_name" v-model="tutor" :options="tutors"></v-select>
+				<v-select label="first_name" v-model="tutor" :options="tutors"></v-select>
 
 		    <base-radio name="today" class="mt-3" v-model="occurrence">
 	        Today only

@@ -1,5 +1,10 @@
 <template>
-  <base-button v-if="session" outline class="btn-sm" type="secondary" @click="emitClick">{{session.tutor_f_name}}</base-button>
+  <base-button outline class="btn-sm" 
+               :type="tutor.id == $store.state.userId ? 'warning' : 'secondary'" 
+               v-if="session" 
+               @click="emitClick">
+    {{session.tutor_f_name}}
+  </base-button>
   <base-button v-else-if="userRole=='admin'" type="secondary" class="btn-sm" @click="emitClick">+</base-button>
 </template>
 <script>
