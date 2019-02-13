@@ -17,25 +17,33 @@
 				<p>Loading...</p>
 			</div>
 			<tbody v-else>
-				<ReportRow v-for="report in reports" :key="report.id" :report_prop="report" @clicked="openReport"/>
+				<ReportRow v-for="report in pageReports" :key="report.id" :report_prop="report" @clicked="openReport"/>
 			</tbody>
 		</table>
+		<base-pagination v-if="reports.length > 10" 
+										 v-model="page" 
+										 :total="reports.length" 
+										 align="center">
+		</base-pagination>
 
 	</div>
 </template>
 
 <script>
 	import ReportRow from './ReportListRow';
+	import BasePagination from '@/components/BasePagination';
 
 	export default {
 		components: {
-			ReportRow
+			ReportRow,
+			BasePagination
 		},
 		data () {
 			return {
 				reports: null,
 				loading: false,
-				errored: false
+				errored: false,
+				page: 1
 			}
 		},
 		mounted () {
@@ -57,6 +65,12 @@
 			openReport (report) {
 				this.$router.push({ path: `/admin-panel/report/${report.id}` })
 			}
+		},
+		computed: {
+			pageReports () {
+				var start = (this.page-1)*10;
+				return this.reports ? this.reports.slice(start, start+10) : [];
+			},
 		}
 	}
 </script>

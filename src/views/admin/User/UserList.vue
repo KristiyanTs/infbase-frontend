@@ -19,19 +19,19 @@
 					</div>
 				  <tbody v-else>
 				  	<div v-if="user == 'Students'">
-							<user-row v-for="student in page_students" :user="student" :key="student.id" @changed="onRoleChange"/>
+							<user-row v-for="student in pageStudents" :user="student" :key="student.id" @changed="onRoleChange"/>
 				  	</div>
 				  	<div v-if="user == 'Tutors'">
-				  		<user-row v-for="tutor in page_tutors" :user="tutor" :key="tutor.id" @changed="onRoleChange"/>
+				  		<user-row v-for="tutor in pageTutors" :user="tutor" :key="tutor.id" @changed="onRoleChange"/>
 				  	</div>
 				  	<div v-if="user == 'Admins'">
-				  		<user-row v-for="admin in page_admins" :user="admin" :key="admin.id" @changed="onRoleChange"/>
+				  		<user-row v-for="admin in pageAdmins" :user="admin" :key="admin.id" @changed="onRoleChange"/>
 				  	</div>
 				  </tbody>
 				</table>
-				<base-pagination v-if="user == 'Students' && students_count > 10" v-model="page_student" :total="students_count" align="center"></base-pagination>
-				<base-pagination v-if="user == 'Tutors' && tutors_count > 10" v-model="page_tutor" :total="tutors_count" align="center"></base-pagination>
-				<base-pagination v-if="user == 'Admins' && admins_count > 10" v-model="page_admin" :total="admins_count" align="center"></base-pagination>
+				<base-pagination v-if="user == 'Students' && studentsCount > 10" v-model="page_student" :total="studentsCount" align="center"></base-pagination>
+				<base-pagination v-if="user == 'Tutors' && tutorsCount > 10" v-model="page_tutor" :total="tutorsCount" align="center"></base-pagination>
+				<base-pagination v-if="user == 'Admins' && adminsCount > 10" v-model="page_admin" :total="adminsCount" align="center"></base-pagination>
 			</section>
 		</div>	
 	</div>
@@ -99,24 +99,24 @@
 			}
 		},
 		computed: {
-			students_count () {
+			studentsCount () {
 				return this.students ? this.students.length : 0
 			},
-			tutors_count () {
+			tutorsCount () {
 				return this.tutors ? this.tutors.length : 0;
 			},
-			admins_count () {
+			adminsCount () {
 				return this.admins ? this.admins.length : 0;
 			},
-			page_students () {
+			pageStudents () {
 				var start = (this.page_student-1)*10;
 				return this.students ? this.students.slice(start, start+10) : [];
 			},
-			page_tutors () {
+			pageTutors () {
 				var start = (this.page_tutor-1)*10;
 				return this.tutors ? this.tutors.slice(start, start+10) : [];
 			},
-			page_admins () {
+			pageAdmins () {
 				var start = (this.page_admin-1)*10;
 				return this.admins ? this.admins.slice(start, start+10) : [];
 			}
