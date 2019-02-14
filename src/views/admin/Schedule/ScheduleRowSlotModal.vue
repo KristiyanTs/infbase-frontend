@@ -12,7 +12,12 @@
       Today only
     </base-radio>
     <base-radio name="weekly" class="mt-3" v-model="occurrence">
-      Weekly on {{ dayOfWeek }} until
+      <div class="d-inline-block">Weekly on {{ dayOfWeek }} until</div>  
+      <flat-picker 
+        :config="{}"
+        class="form-control datepicker"
+        v-model="until">
+      </flat-picker>
     </base-radio>
 
     <template slot="footer">
@@ -28,12 +33,14 @@
 import vSelect from 'vue-select'
 import Modal from '@/components/Modal';
 import BaseRadio from '@/components/BaseRadio';
+import FlatPicker from "vue-flatpickr-component";
 
 export default {
   components: {
     vSelect,
     Modal,
-    BaseRadio
+    BaseRadio,
+    FlatPicker
   },
   props: {
     session_prop: {
@@ -82,7 +89,8 @@ export default {
               hour_id: this.hour_prop.id,
               start_date: this.day_prop.join('-')
             },
-            occurrence: this.occurrence
+            occurrence: this.occurrence,
+            until: this.until
           })
           .then(response => {
             this.modifySuccessful(response.data, 'created');
@@ -98,7 +106,8 @@ export default {
               hour_id: this.hour_prop.id,
               start_date: this.day_prop.join('-')
             },
-            occurrence: this.occurrence
+            occurrence: this.occurrence,
+            until: this.until
           })
           .then(response => {
             this.modifySuccessful(response.data, 'updated');
@@ -109,7 +118,8 @@ export default {
       else 
         this.axios
           .delete(`/api/admin/teaching_sessions/${this.session.id}`, {
-            occurrence: this.occurrence
+            occurrence: this.occurrence,
+            until: this.until
           })
           .then(response => {
             this.modifySuccessful(null, 'deleted');
