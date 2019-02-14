@@ -16,10 +16,7 @@
 		</section>
 		<table class="table text-center" v-else>
 			<ScheduleHead :calendar_range="calendar_range" :scope="calendar_scope" @range="changeRange"/>
-			<section v-if="loading">
-				<p class="p-5">Loading...</p>
-			</section>
-			<tbody v-else>
+			<tbody>
 				<ScheduleRow v-for="hour in hours" 
 										:key="hour.id"
 										:sessions="sessions"
@@ -124,12 +121,14 @@
 				this.getSessionsInRange();
 			},
 			modifySessions(session, action) {
-				let old_session = this.session;
-				let idx = this.sessions.find(sess => sess.id == old_session.id);
+				if (this.session) {
+					let old_session_id = this.session.id;
+					var idx = this.sessions.findIndex(sess => sess.id == old_session_id);
+				}
 
 				if (action == 'created')
 					this.sessions.push(session);
-				else if(action == 'updated') 
+				else if(action == 'updated')
 					this.sessions.splice(idx, 1, session);
 				else 
 					this.sessions.splice(idx, 1);

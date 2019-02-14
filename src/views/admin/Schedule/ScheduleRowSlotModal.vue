@@ -85,7 +85,7 @@ export default {
             occurrence: this.occurrence
           })
           .then(response => {
-            this.modifySuccessful(response, 'created');
+            this.modifySuccessful(response.data, 'created');
           })
           .catch(error => this.modifyFailed(error))
         
@@ -101,7 +101,7 @@ export default {
             occurrence: this.occurrence
           })
           .then(response => {
-            this.modifySuccessful(response, 'updated');
+            this.modifySuccessful(response.data, 'updated');
           })
           .catch(error => this.modifyFailed(error))
 
@@ -112,13 +112,13 @@ export default {
             occurrence: this.occurrence
           })
           .then(response => {
-            this.modifySuccessful(this.session, 'deleted');
+            this.modifySuccessful(null, 'deleted');
           })
           .catch(error => this.modifyFailed())
     },
     modifySuccessful (response, action) {
       this.$store.commit('ADD_ALERT', [`Session slot ${action} successfully.`, 'success']);
-      this.$emit('modified', response.data, action);
+      this.$emit('modified', response, action);
       this.closeModal();
     },
     modifyFailed() {
@@ -136,10 +136,12 @@ export default {
     }
   },
   watch: {
-    session_prop () {
-      [this.session, this.tutor] = [null, null];
-      this.session = this.session_prop;
-      this.tutor = this.tutors.find(tutor => tutor.id == this.session.tutor_id)
+    modal_prop () {
+      if(this.modal_prop){
+        [this.session, this.tutor, this.occurrence] = [null, null, 'today'];
+        this.session = this.session_prop;
+        this.tutor = this.tutors.find(tutor => tutor.id == this.session.tutor_id)
+      }
     }
   }
 }
