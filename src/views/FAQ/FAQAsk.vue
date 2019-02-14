@@ -109,7 +109,10 @@
       submitForm: function () {
         if (this.form_valid()) {
           this.form_data.question.course_id = this.form_data.question.course.id;
-          this.axios.post("/api/questions", this.form_data)
+          let router = this.$router;
+          this.axios.post("/api/questions", this.form_data).then(function(response){
+            router.push({name: "faq_detail", params: {id: response.data.id}})
+          })
         } else {
           this.form_validity.title = this.form_data.question.title ? null : false;
           this.form_validity.body = this.form_data.question.body ? null : false;
