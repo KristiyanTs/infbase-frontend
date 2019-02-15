@@ -10,7 +10,8 @@
 				<tr class="row">
 					<th class="col-2">Status</th>
 					<th class="col-5">Date</th>
-					<th class="col-5">Students</th>
+					<th class="col-2">Students</th>
+					<th class="col-3">Tutor</th>
 				</tr>
 			</thead>
 			<div v-if="loading" class="p-5">

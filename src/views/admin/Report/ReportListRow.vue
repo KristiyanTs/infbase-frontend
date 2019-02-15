@@ -4,7 +4,8 @@
       <badge :type="completed ? 'success' : 'warning'">{{completed ? 'Completed' : 'Incomplete'}}</badge>
     </td>
     <td class="col-5">{{report.date}}</td>
-    <td class="col-5">{{report.students}}</td>
+    <td class="col-2">{{report.students}}</td>
+    <td class="col-3">{{report.tutor_name}}</td>
   </tr>
 </template>
 
