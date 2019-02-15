@@ -22,7 +22,7 @@
       scope: {
         type: Number,
         default: 3,
-        description: "How many days to show at once"
+        description: 'How many days to show at once'
       }
     },
     data() {
@@ -37,14 +37,18 @@
       this.changeRange();
     },
     methods: {
-      toFormattedDate (date) {
+      toFormattedDate (date, format) {
         date = new Date(Date.UTC(date[0], date[1] - 1, date[2]));
+        let options = {
+          weekday: 'short',
+          month: 'short',
+          day: 'numeric'
+        };
 
-        return date.toLocaleDateString("en-UK", {
-          weekday: "short",
-          month: "short",
-          day: "numeric"
-        });
+        if (format == 'rails') 
+          options['year'] = 'numeric';
+
+        return date.toLocaleDateString('en-UK', options);
       },
 			toArrayDate (date) {
         let year = date.getUTCFullYear();
@@ -67,7 +71,7 @@
           .map((x, idx) => [x[0], x[1], x[2] + idx]);
 
         // Update parent
-        this.$emit('range', this.calendar_range);
+        this.$emit('range', this.calendar_range, this.calendar_range.map(date => this.toFormattedDate(date, 'rails')));
 			}
     },
     watch: {

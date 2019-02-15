@@ -15,7 +15,7 @@
 			<p>We're sorry, we're not able to retrieve this information at the moment, please try back later</p>
 		</section>
 		<table class="table text-center" v-else>
-			<ScheduleHead :calendar_range="calendar_range" :scope="calendar_scope" @range="changeRange"/>
+			<ScheduleHead :scope="calendar_scope" @range="changeRange"/>
 			<tbody>
 				<ScheduleRow v-for="hour in hours" 
 										:key="hour.id"
@@ -100,13 +100,13 @@
         .finally(() => this.loading = false)
 		},
 		methods: {
-			getSessionsInRange () {
+			getSessionsInRange (calendar_range) {
 	      this.loading = true;
 
 	      this.axios
 	        .get('/api/teaching_sessions', {
 	          headers: { Authorization: window.$cookies.get("jwt") },
-	          params: { range: this.calendar_range }
+	          params: { range: calendar_range }
 	        })
 	        .then(response => {
 	          this.sessions = response.data;
@@ -116,9 +116,9 @@
 	        })
 	        .finally(() => this.loading = false)
 			},
-			changeRange (range) {
+			changeRange (range, rails_range) {
 				this.calendar_range = range;
-				this.getSessionsInRange();
+				this.getSessionsInRange(rails_range);
 			},
 			modifySessions(session, action) {
 				if (this.session) {
