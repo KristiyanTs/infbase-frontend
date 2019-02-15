@@ -118,8 +118,10 @@ export default {
       else 
         this.axios
           .delete(`/api/admin/teaching_sessions/${this.session.id}`, {
-            occurrence: this.occurrence,
-            until: this.until
+            params: {
+              occurrence: this.occurrence,
+              until: this.until
+            }
           })
           .then(response => {
             this.modifySuccessful(null, 'deleted');
