@@ -1,4 +1,3 @@
-import Vue from "vue";
 import Router from "vue-router";
 import AppHeader from "./layout/AppHeader";
 import AppFooter from "./layout/AppFooter";
@@ -19,7 +18,6 @@ import FAQIndex from "./views/FAQ/FAQIndex";
 import FAQQuestionView from "./views/FAQ/FAQQuestionView";
 import FAQAsk from "./views/FAQ/FAQAsk";
 
-Vue.use(Router);
 
 let router = new Router({
   mode: "history",
