@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
     plainAxiosInstance,
     components: { App },
     template: "<App/>"
-  }).$mount("#app");
+  });
   store.$axios = v.axios;
   if (window.$cookies.get("userId") && window.$cookies.get("jwt")) {
     v.$store.dispatch("signedIn", [
@@ -54,4 +54,5 @@ document.addEventListener("DOMContentLoaded", () => {
     ]);
   }
   global.vm = v; //Define you app variable globally
+  v.$mount("#app")
 });
