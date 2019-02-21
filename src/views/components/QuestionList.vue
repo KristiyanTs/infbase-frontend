@@ -34,6 +34,11 @@
         default: "There are no questions matching that query",
         description: "Message to display if no questions are found matching given criteria"
       },
+      orderBy:{
+        type: String,
+        default: 'vote_count',
+        description: 'ordering of questions'
+      },
       theWatched: {
         type: Number,
         default: 0,
@@ -56,12 +61,12 @@
     methods: {
       fetchData: function () {
         let v = this;
-        console.log(this.filterCourse);
         this.axios.get('/api/questions', {
           params: {
             course: this.filterCourse,
             asked_by_me: this.filterAskedByMe,
             tag: this.filterTag,
+            order_by: this.orderBy,
           }
         }).then(function (response) {
           v.questions = response.data;

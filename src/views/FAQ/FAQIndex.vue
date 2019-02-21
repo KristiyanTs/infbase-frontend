@@ -57,11 +57,11 @@
         <div class="col">
           <base-dropdown style="display: block" menuClasses="block-dropdown">
             <base-button block slot="title" type="secondary" class="dropdown-toggle">
-              Order By: Votes
+              Order By: {{orderBy}}
             </base-button>
-            <a class="dropdown-item" href="#">Votes</a>
-            <a class="dropdown-item" href="#">Views</a>
-            <a class="dropdown-item" href="#">Date Asked</a>
+            <a class="dropdown-item" href="#" @click="change_sort('Votes')">Votes</a>
+            <a class="dropdown-item" href="#" @click="change_sort('Views')">Views</a>
+            <a class="dropdown-item" href="#" @click="change_sort('Date Asked')">Date Asked</a>
           </base-dropdown>
         </div>
       </div>
@@ -69,6 +69,7 @@
                     v-bind:filter-course="applied_filters.course"
                     v-bind:filter-asked-by-me="applied_filters.asked_by_me"
                     v-bind:filter-tag="applied_filters.tag"
+                    v-bind:order-by="orderByOptions[orderBy]"
                     v-bind:the-watched="the_watched"
                     ref="qList"></QuestionList>
     </div>
@@ -109,6 +110,12 @@
           course: null,
           tag: null
         },
+        orderBy: 'Votes',
+        orderByOptions: {
+          'Votes': 'vote_count',
+          'Views': 'view_count',
+          'Date Asked': 'posted',
+        },
         the_watched: 0
       }
     },
@@ -130,6 +137,10 @@
         this.the_watched += 1;
         this.filters_modal = false;
       },
+      change_sort: function (parameter) {
+        this.orderBy = parameter;
+        this.the_watched += 1;
+      }
     }
   };
 </script>
