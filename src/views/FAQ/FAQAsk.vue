@@ -40,7 +40,7 @@
 
           <br/>
           <br/>
-          <div v-if="$store.state.userRole=='tutor'">
+          <div v-if="$store.state.userRole!='student'">
             <BaseInput :valid="this.form_validity.interest"
                        placeholder="Number of students showing interest"
                        input_type="number"
