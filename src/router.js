@@ -17,6 +17,8 @@ import ExpertiseList from "./views/admin/Expertise/ExpertiseList";
 import FAQIndex from "./views/FAQ/FAQIndex";
 import FAQQuestionView from "./views/FAQ/FAQQuestionView";
 import FAQAsk from "./views/FAQ/FAQAsk";
+import QuestionList from "./views/components/QuestionList";
+import TutorQuestion from "./views/admin/Questions/TutorQuestion"
 
 
 let router = new Router({
@@ -108,7 +110,11 @@ let router = new Router({
         {
           path: "expertises",
           component: ExpertiseList
-        }
+        },
+        {
+          path: "questions",
+          component: TutorQuestion
+        },
       ]
     },
     {
