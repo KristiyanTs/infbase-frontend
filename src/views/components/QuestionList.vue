@@ -39,6 +39,22 @@
         default: 'vote_count',
         description: 'ordering of questions'
       },
+      filterUpcomingSession:{
+        type: Boolean,
+        description: "Filter to questions asked for the next session"
+      },
+      filterUserCourses:{
+        type: Boolean,
+        description: "Filter to courses this user is on"
+      },
+      filterAnswered:{
+        type: Boolean,
+        description: "Filter to answered questions"
+      },
+      filterUnAnswered:{
+        type: Boolean,
+        description: "Filter to unanswered questions"
+      },
       theWatched: {
         type: Number,
         default: 0,
@@ -61,13 +77,19 @@
     methods: {
       fetchData: function () {
         let v = this;
-        this.axios.get('/api/questions', {
-          params: {
-            course: this.filterCourse,
+        let params = {
+          course: this.filterCourse,
             asked_by_me: this.filterAskedByMe,
             tag: this.filterTag,
             order_by: this.orderBy,
-          }
+            upcoming_session: this.filterUpcomingSession,
+            user_courses: this.filterUserCourses,
+            answered: this.filterAnswered,
+            unanswered: this.filterUnAnswered,
+        };
+        Object.keys(params).forEach((key) => (params[key] == false) && delete params[key]);
+        this.axios.get('/api/questions', {
+          params: params
         }).then(function (response) {
           v.questions = response.data;
         });
