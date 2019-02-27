@@ -1,13 +1,12 @@
 <template>
   <div>
-    <div
-      v-for="user in users"
-      :key="user.id"
-      class="mb-5"
-    >
-      <h4 class="text-primary mb-5">{{user}}</h4>
+    <div v-for="user in users" :key="user.id" class="mb-5">
+      <h4 class="text-primary mb-5">{{ user }}</h4>
       <section v-if="errored">
-        <p>We're sorry, we're not able to retrieve this information at the moment, please try back later</p>
+        <p>
+          We're sorry, we're not able to retrieve this information at the
+          moment, please try back later
+        </p>
       </section>
       <section v-else>
         <table class="table table-hover">
@@ -15,7 +14,12 @@
             <tr class="row">
               <th class="col">Name</th>
               <th class="col">Email</th>
-              <th class="col text-right">Actions</th>
+              <th
+                class="col text-right"
+                v-if="$store.state.userRole == 'admin'"
+              >
+                Actions
+              </th>
             </tr>
           </thead>
           <div v-if="loading">

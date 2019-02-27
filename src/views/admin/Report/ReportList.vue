@@ -3,24 +3,20 @@
     <h4 class="text-primary mb-5">Reports</h4>
 
     <div v-if="errored">
-      <p>We're sorry, we're not able to retrieve this information at the moment, please try back later</p>
+      <p>
+        We're sorry, we're not able to retrieve this information at the moment,
+        please try back later
+      </p>
     </div>
-    <table
-      v-else
-      class="table table-hover"
-    >
+    <table v-else class="table table-hover">
       <thead>
         <tr class="row">
           <th class="col-2">Status</th>
           <th class="col-5">Date</th>
-          <th class="col-2">Students</th>
-          <th class="col-3">Tutor</th>
+          <th class="col-5">Tutor</th>
         </tr>
       </thead>
-      <div
-        v-if="loading"
-        class="p-5"
-      >
+      <div v-if="loading" class="p-5">
         <p>Loading...</p>
       </div>
       <tbody v-else>
