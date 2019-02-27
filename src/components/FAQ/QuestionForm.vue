@@ -13,23 +13,23 @@
         </div>
         <BaseInput placeholder="Question Title" v-model="form_data.question.title"
                    :valid="form_validity.title"></BaseInput>
-        <div :class="this.form_validity.body == false ? 'has-danger': ''">
-                    <textarea :class="this.form_validity.body == false ? 'form-control is-invalid': 'form-control'"
+        <div :class="form_validity.body == false ? 'has-danger': ''">
+                    <textarea :class="form_validity.body == false ? 'form-control is-invalid': 'form-control'"
                               rows="3" placeholder="Question Body"
                               v-model="form_data.question.body"></textarea>
         </div>
         <br/>
         <BaseCheckbox v-model="form_data.question.anonymous">Ask Anonymously</BaseCheckbox>
         <br/>
-        <div :class="this.form_validity.course == false ? 'is-invalid has-danger': ''">
-          <v-select style="width: 100%;"
+        <div :class="form_validity.course == false ? 'is-invalid has-danger': ''">
+          <v-select class="w100"
                     label="name"
                     :options="courses"
                     v-model="form_data.question.course"
                     placeholder="Course"></v-select>
         </div>
         <br/>
-        <v-select style="width: 100%"
+        <v-select class="w100"
                   label="name"
                   :options="tags"
                   v-model="form_data.tags"
@@ -40,13 +40,13 @@
         <br/>
         <br/>
         <div v-if="$store.state.userRole!='student'">
-          <BaseInput :valid="this.form_validity.interest"
+          <BaseInput :valid="form_validity.interest"
                      placeholder="Number of students showing interest"
                      input_type="number"
                      v-model="form_data.interest"></BaseInput>
-          <div :class="this.form_validity.answer == false ? 'has-danger': ''">
+          <div :class="form_validity.answer == false ? 'has-danger': ''">
                             <textarea
-                                    :class="this.form_validity.answer == false ? 'form-control is-invalid': 'form-control'"
+                                    :class="form_validity.answer == false ? 'form-control is-invalid': 'form-control'"
                                     rows="3"
                                     placeholder="Answer"
                                     v-model="form_data.answer"></textarea>
@@ -139,3 +139,8 @@
     },
   };
 </script>
+<style>
+  .w100{
+    width: 100%;
+  }
+</style>
