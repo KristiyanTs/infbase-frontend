@@ -12,7 +12,7 @@
       <div class="row">
         <div class="col">
           <font-awesome-icon icon='search'/>
-          <base-input addon-left-icon="fa fa-search" placeholder="Search"></base-input>
+          <base-input addon-left-icon="fa fa-search" placeholder="Search" v-on:input="search_changed"></base-input>
         </div>
       </div>
       <br/>
@@ -70,6 +70,7 @@
                     v-bind:filter-asked-by-me="applied_filters.asked_by_me"
                     v-bind:filter-tag="applied_filters.tag"
                     v-bind:order-by="orderByOptions[orderBy]"
+                    v-bind:search-string="search_string"
                     v-bind:the-watched="the_watched"
                     ref="qList"></QuestionList>
     </div>
@@ -116,6 +117,7 @@
           'Views': 'view_count',
           'Date Asked': 'posted',
         },
+        search_string: null,
         the_watched: 0
       }
     },
@@ -140,6 +142,15 @@
       change_sort: function (parameter) {
         this.orderBy = parameter;
         this.the_watched += 1;
+      },
+      search_changed: function (event) {
+        if (event.length >= 3){
+          this.search_string = event;
+          this.the_watched += 1;
+        } else if (this.search_string != null) {
+          this.search_string = null;
+          this.the_watched +=1;
+        }
       }
     }
   };
