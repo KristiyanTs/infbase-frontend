@@ -11,7 +11,6 @@
       <br/>
       <div class="row">
         <div class="col">
-          <font-awesome-icon icon='search'/>
           <base-input addon-left-icon="fa fa-search" placeholder="Search" v-on:input="search_changed"></base-input>
         </div>
       </div>
@@ -84,6 +83,7 @@
   import BaseCheckbox from "../../components/BaseCheckbox";
   import BTooltip from "bootstrap-vue/es/directives/tooltip/tooltip";
   import BaseInput from "../../components/BaseInput";
+
 
   export default {
     name: "faq_index",
