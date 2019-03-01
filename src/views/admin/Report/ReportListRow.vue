@@ -7,15 +7,17 @@
     </td>
     <td class="col-5">{{ report.date }}</td>
     <td class="col-3">{{ report.tutor_name }}</td>
-    <td class="col-2">
+    <td class="col-2 text-right">
       <base-button
-        @click="$emit('clicked', report)"
+        outline
         type="warning"
         class="btn-sm"
+        @click="$emit('clicked', report)"
         v-if="!completed && $store.state.userRole == 'tutor'"
         >Fill in
       </base-button>
       <base-button
+        outline
         class="btn-sm"
         type="info"
         v-else-if="completed"

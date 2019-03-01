@@ -4,7 +4,7 @@
     <base-button
       v-if="$store.state.userRole == 'admin'"
       @click="modal = true"
-      class="float-right d-inline-block"
+      class="float-right d-inline-block btn-sm btn-link"
       type="primary"
       >Export CSV</base-button
     >
@@ -21,7 +21,7 @@
           <th class="col-2">Status</th>
           <th class="col-5">Date</th>
           <th class="col-3">Tutor</th>
-          <th class="col-2">Action</th>
+          <th class="col-2 text-right">Actions</th>
         </tr>
       </thead>
       <div v-if="loading" class="p-5">

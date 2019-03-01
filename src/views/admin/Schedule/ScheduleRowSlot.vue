@@ -2,18 +2,22 @@
   <base-button
     outline
     class="btn-sm"
-    :type="session_prop.tutor_id == $store.state.userId ? 'warning' : 'secondary'"
+    :type="
+      session_prop.tutor_id == $store.state.userId ? 'warning' : 'secondary'
+    "
     v-if="session_prop"
     @click="emitClick"
   >
-    {{session_prop.tutor_f_name}}
+    {{ session_prop.tutor_f_name }}
   </base-button>
   <base-button
-    v-else-if="userRole=='admin'"
+    outline
+    v-else-if="userRole == 'admin'"
     type="secondary"
     class="btn-sm"
     @click="emitClick"
-  >+</base-button>
+    >+</base-button
+  >
 </template>
 
 <script>

@@ -4,8 +4,8 @@
     <base-dropdown class="float-right d-inline-block">
       <base-button
         slot="title"
-        type="secondary"
-        class="dropdown-toggle"
+        type="primary"
+        class="dropdown-toggle btn-sm btn-link"
       >
         {{ calendar_scope }} days
       </base-button>

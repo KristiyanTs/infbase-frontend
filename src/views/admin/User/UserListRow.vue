@@ -3,7 +3,7 @@
     <td class="col">{{ user.first_name }} {{ user.last_name }}</td>
     <td class="col">{{ user.email }}</td>
     <td class="col text-right" v-if="$store.state.userRole == 'admin'">
-      <base-button class="btn-sm" type="info" @click="modal = true">
+      <base-button outline class="btn-sm" type="info" @click="modal = true">
         Edit
       </base-button>
     </td>

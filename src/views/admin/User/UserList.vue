@@ -1,7 +1,18 @@
 <template>
   <div>
     <div v-for="user in users" :key="user.id" class="mb-5">
-      <h4 class="text-primary mb-5">{{ user }}</h4>
+      <h4 class="text-primary mb-5 d-inline-block">{{ user }}</h4>
+      <base-button
+        outline
+        v-if="$store.state.userRole == 'admin'"
+        @click="
+          modal = true;
+          recipient = user;
+        "
+        class="float-right d-inline-block btn-sm"
+        type="primary"
+        >Email {{ user }}</base-button
+      >
       <section v-if="errored">
         <p>
           We're sorry, we're not able to retrieve this information at the
@@ -72,17 +83,24 @@
         ></base-pagination>
       </section>
     </div>
+    <email-modal
+      :recipient="recipient"
+      :modal="modal"
+      @closeModal="closeModal"
+    />
   </div>
 </template>
 
 <script>
 import UserRow from "./UserListRow";
+import EmailModal from "./UserEmailModal";
 import BasePagination from "@/components/BasePagination";
 
 export default {
   components: {
     UserRow,
-    BasePagination
+    BasePagination,
+    EmailModal
   },
   props: {
     users: {
@@ -101,7 +119,9 @@ export default {
       students: [],
       page_student: 1,
       page_tutor: 1,
-      page_admin: 1
+      page_admin: 1,
+      modal: false,
+      recipient: null
     };
   },
   mounted() {
@@ -127,6 +147,9 @@ export default {
       let index = this.all_users.findIndex(usr => usr.id == user.id);
       vm.$set(this.all_users, index, user);
       document.body.classList.remove("modal-open"); // hack to forcefully close the modal
+    },
+    closeModal() {
+      this.modal = false;
     }
   },
   watch: {
