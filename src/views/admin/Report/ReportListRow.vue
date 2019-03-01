@@ -1,13 +1,28 @@
 <template>
-  <tr
-    class="row"
-    @click="$emit('clicked', report)"
-  >
+  <tr class="row">
     <td class="col-2">
-      <badge :type="completed ? 'success' : 'warning'">{{completed ? 'Completed' : 'Incomplete'}}</badge>
+      <badge :type="completed ? 'success' : 'warning'">{{
+        completed ? "Completed" : "Incomplete"
+      }}</badge>
     </td>
-    <td class="col-5">{{report.date}}</td>
-    <td class="col-5">{{report.tutor_name}}</td>
+    <td class="col-5">{{ report.date }}</td>
+    <td class="col-3">{{ report.tutor_name }}</td>
+    <td class="col-2">
+      <base-button
+        @click="$emit('clicked', report)"
+        type="warning"
+        class="btn-sm"
+        v-if="!completed && $store.state.userRole == 'tutor'"
+        >Fill in
+      </base-button>
+      <base-button
+        class="btn-sm"
+        type="info"
+        v-else-if="completed"
+        @click="$emit('clicked', report)"
+        >Open</base-button
+      >
+    </td>
   </tr>
 </template>
 
@@ -40,4 +55,3 @@ tr:hover {
   cursor: pointer;
 }
 </style>
-

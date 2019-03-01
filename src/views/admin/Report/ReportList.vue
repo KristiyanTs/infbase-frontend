@@ -1,6 +1,13 @@
 <template>
   <div>
-    <h4 class="text-primary mb-5">Reports</h4>
+    <h4 class="text-primary mb-5 d-inline-block">Reports</h4>
+    <base-button
+      v-if="$store.state.userRole == 'admin'"
+      @click="modal = true"
+      class="float-right d-inline-block"
+      type="primary"
+      >Export CSV</base-button
+    >
 
     <div v-if="errored">
       <p>
@@ -13,7 +20,8 @@
         <tr class="row">
           <th class="col-2">Status</th>
           <th class="col-5">Date</th>
-          <th class="col-5">Tutor</th>
+          <th class="col-3">Tutor</th>
+          <th class="col-2">Action</th>
         </tr>
       </thead>
       <div v-if="loading" class="p-5">
@@ -35,24 +43,27 @@
       align="center"
     >
     </base-pagination>
-
+    <report-modal :modal="modal" @closeModal="closeModal" />
   </div>
 </template>
 
 <script>
 import ReportRow from "./ReportListRow";
 import BasePagination from "@/components/BasePagination";
+import ReportModal from "./ReportExportModal";
 
 export default {
   components: {
     ReportRow,
-    BasePagination
+    BasePagination,
+    ReportModal
   },
   data() {
     return {
-      reports: null,
+      reports: [],
       loading: false,
       errored: false,
+      modal: false,
       page: 1
     };
   },
@@ -74,6 +85,9 @@ export default {
   methods: {
     openReport(report) {
       this.$router.push({ path: `/admin-panel/report/${report.id}` });
+    },
+    closeModal() {
+      this.modal = false;
     }
   },
   computed: {
