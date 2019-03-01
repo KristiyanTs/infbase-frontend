@@ -3,9 +3,10 @@
     <h4 class="text-primary mb-5 d-inline-block">Schedule</h4>
     <base-dropdown class="float-right d-inline-block">
       <base-button
+        outline
         slot="title"
         type="primary"
-        class="dropdown-toggle btn-sm btn-link"
+        class="dropdown-toggle btn-sm"
       >
         {{ calendar_scope }} days
       </base-button>

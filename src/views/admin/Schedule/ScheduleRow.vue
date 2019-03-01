@@ -1,5 +1,5 @@
 <template>
-  <tr class="row">
+  <tr class="row" v-if="anySessions || $store.state.userRole == 'admin'">
     <td class="col-1">{{ hour.start }}</td>
     <td
       class="col"
@@ -51,6 +51,14 @@ export default {
     },
     emitClick(session_prop, day, hour) {
       this.$emit("clicked", session_prop, day, hour);
+    }
+  },
+  computed: {
+    anySessions() {
+      let self = this;
+      return this.range.reduce(function(answer, day) {
+        return answer || self.findSession(day.join(".")) != undefined;
+      }, false);
     }
   }
 };
