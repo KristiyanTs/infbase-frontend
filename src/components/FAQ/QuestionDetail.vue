@@ -12,6 +12,10 @@
       <div class="votes col-md-1">
         <div class="mini-counts"><span>{{question.votes}}</span></div>
         <div>{{question.votes | pluralize('vote') }}</div>
+
+        <button type="button" class="btn btn-outline-default " v-if="!question.voted" v-on:click="upvote"><i class="fa fa-plus">1</i>
+        </button>
+        <button type="button" class="btn btn-success" v-else v-on:click="remove_vote"><i class="fa fa-check"></i></button>
       </div>
       <div class="col-md-8">
         {{question.body}}
@@ -61,8 +65,34 @@
   export default {
     name: "question-detail",
     props: {
-      question: Object
+      question_id: String
     },
+    data() {
+      return {
+        question: {}
+      }
+    },
+    mounted: function () {
+      this.fetchData()
+    },
+    methods: {
+      upvote: function () {
+        this.question.votes += 1;
+        this.question.voted = true;
+        this.axios.post('/api/questions/' + this.question_id + '/vote_for' )
+      },
+      remove_vote: function () {
+        this.question.votes -= 1;
+        this.question.voted = false;
+        this.axios.post('/api/questions/' + this.question_id + '/remove_vote')
+      },
+      fetchData: function () {
+        let v = this;
+        this.axios.get('/api/questions/' + this.question_id ).then(function (response) {
+          v.question = response.data;
+        });
+      }
+    }
   };
 </script>
 <style>
@@ -80,6 +110,7 @@
   }
 
   .question-end {
+    padding-bottom: 5px;
     border-bottom: 1px solid;
   }
 
