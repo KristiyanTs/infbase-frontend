@@ -4,7 +4,7 @@
       <div class="row justify-content-md-center">
         <div class="col">
           <router-link style="display: block" to="/faq/ask" class="btn btn-success">
-            Ask a Question
+            {{add_q_button_string}}
           </router-link>
         </div>
       </div>
@@ -127,6 +127,9 @@
     computed: {
       filter_class: function () {
         return Object.values(this.applied_filters).some(element => Boolean(element)) ? "primary" : "secondary";
+      },
+      add_q_button_string: function () {
+        return this.$store.state.userRole == "student" ? "Ask a Question" : "Add a Question";
       }
     },
     methods: {

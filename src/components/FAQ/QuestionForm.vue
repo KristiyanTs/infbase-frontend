@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div>
-      <h5 class="text-center">Ask a Question</h5>
+      <h5 class="text-center">{{title_string}}</h5>
       <form>
         <div v-if="suggestions.length">
           <h6>Questions that may answer your query:</h6>
@@ -101,6 +101,11 @@
     },
     mounted: function () {
       this.getOptions();
+    },
+    computed:{
+      title_string: function () {
+        return this.$store.state.userRole == "student" ? "Ask a Question" : "Add a Question";
+      }
     },
     methods: {
       getOptions: function () {
