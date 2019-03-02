@@ -17,7 +17,7 @@
       <br/>
       <div class="row">
         <div class="col">
-          <base-button block type="primary" class="mb-3" @click="filters_modal = true">
+          <base-button block v-bind:type="filter_class" class="mb-3" @click="filters_modal = true">
             Filter
             <font-awesome-icon icon="filter"/>
           </base-button>
@@ -104,12 +104,12 @@
         filter_form: {
           asked_by_me: false,
           course: this.$route.params.course,
-          tag: null
+          tag: this.$route.params.tag
         },
         applied_filters: {
           asked_by_me: false,
           course: this.$route.params.course ? this.$route.params.course.id : null,
-          tag: null
+          tag: this.$route.params.tag ? this.$route.params.tag.id : null
         },
         orderBy: 'Votes',
         orderByOptions: {
@@ -123,6 +123,11 @@
     },
     mounted: function () {
       this.$store.dispatch('updateAvailableTagsAndCourses');
+    },
+    computed: {
+      filter_class: function () {
+        return Object.values(this.applied_filters).some(element => Boolean(element)) ? "primary" : "secondary";
+      }
     },
     methods: {
       clear_filters: function () {
@@ -144,12 +149,12 @@
         this.the_watched += 1;
       },
       search_changed: function (event) {
-        if (event.length >= 3){
+        if (event.length >= 3) {
           this.search_string = event;
           this.the_watched += 1;
         } else if (this.search_string != null) {
           this.search_string = null;
-          this.the_watched +=1;
+          this.the_watched += 1;
         }
       }
     }
