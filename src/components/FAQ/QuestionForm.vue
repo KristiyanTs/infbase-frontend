@@ -19,7 +19,7 @@
                               v-model="form_data.question.body"></textarea>
         </div>
         <br/>
-        <BaseCheckbox v-model="form_data.question.anonymous">Ask Anonymously</BaseCheckbox>
+        <BaseCheckbox v-model="form_data.question.anonymous" v-show="$store.state.userRole == 'student'">Ask Anonymously</BaseCheckbox>
         <br/>
         <div :class="form_validity.course == false ? 'is-invalid has-danger': ''">
           <v-select class="w100"
