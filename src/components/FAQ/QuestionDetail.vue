@@ -10,8 +10,8 @@
     </div>
     <div class="row">
       <div class="votes col-md-1">
-        <div class="mini-counts"><span>{{question.vote_count}}</span></div>
-        <div>{{question.vote_count | pluralize('vote') }}</div>
+        <div class="mini-counts"><span>{{question.votes}}</span></div>
+        <div>{{question.votes | pluralize('vote') }}</div>
       </div>
       <div class="col-md-8">
         {{question.body}}
