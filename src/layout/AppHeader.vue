@@ -16,71 +16,67 @@
         </div>
       </div>
 
-      <ul class="navbar-nav align-items-lg-center ml-lg-auto">
-        <li class="nav-item d-none d-lg-block">
+      <ul class="navbar-nav ml-lg-auto">
+        <li class="nav-item">
           <router-link
             v-if="!signedIn"
             to="/login"
-            class="btn btn-neutral btn-icon"
+            class="btn btn-neutral btn-link"
           >
-            <span class="btn-inner--icon">
-              <i class="fa fa-sign-in mr-2"></i>
-            </span>
             <span class="nav-link-inner--text">Log in</span>
           </router-link>
-          <base-button
-            v-if="signedIn"
-            @click="logOut"
-            class="btn btn-neutral btn-icon"
-          >
-            <span class="btn-inner--icon">
-              <i class="fa fa-sign-in mr-2"></i>
-            </span>
-            <span class="nav-link-inner--text">Log out</span>
-          </base-button>
           <router-link
             v-if="signedIn && userRole == 'admin'"
             to="/admin-panel/schedule"
-            class="btn btn-primary btn-icon"
+            class="btn btn-primary btn-link"
           >
-            <span class="btn-inner--icon">
-              <i class="fa fa-sign-in mr-2"></i>
-            </span>
             <span class="nav-link-inner--text">Admin panel</span>
           </router-link>
           <router-link
             v-if="signedIn && userRole == 'tutor'"
             to="/admin-panel/schedule"
-            class="btn btn-primary btn-icon"
+            class="btn btn-primary btn-link"
           >
-            <span class="btn-inner--icon">
-              <i class="fa fa-sign-in mr-2"></i>
-            </span>
             <span class="nav-link-inner--text">Tutor panel</span>
           </router-link>
         </li>
+        <base-dropdown tag="li" v-if="signedIn" class="ml-3">
+          <base-button slot="title" type="link" class="dropdown-toggle">
+            Account
+          </base-button>
+          <router-link
+            class="dropdown-item"
+            :to="'/profile/' + $store.state.userId"
+          >
+            Profile
+          </router-link>
+          <a class="dropdown-item" href="#" @click="logOut">Log out</a>
+        </base-dropdown>
       </ul>
     </base-nav>
     <div id="alerts" v-if="anyAlerts" class="w-100 row">
-      <base-alert v-for="[message, status] in $store.state.alerts" 
-                  dismissible="true"
-                  :type="status"
-                  :message="message"
-                  :key="message"
-                  class="col-3 offset-8">
-        {{message}}
+      <base-alert
+        v-for="[message, status] in $store.state.alerts"
+        dismissible="true"
+        :type="status"
+        :message="message"
+        :key="message"
+        class="col-3 offset-8">
+        {{ message }}
       </base-alert>
     </div>
   </header>
 </template>
 <script>
 import BaseNav from "@/components/BaseNav";
+import BaseDropdown from "@/components/BaseDropdown";
 import CloseButton from "@/components/CloseButton";
 
 export default {
   components: {
     BaseNav,
-    CloseButton
+    CloseButton,
+    BaseDropdown
   },
   methods: {
     logOut() {
