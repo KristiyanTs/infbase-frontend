@@ -134,7 +134,6 @@ export default {
         "success"
       ]);
       this.$emit("modified", response, action);
-      this.closeModal();
     },
     modifyFailed() {
       this.$store.commit("ADD_ALERT", ["Something went wrong.", "warning"]);
@@ -150,11 +149,12 @@ export default {
         return new Date(...this.day_prop).toLocaleDateString("en-uk", {
           weekday: "long"
         });
+      else return 0;
     }
   },
   watch: {
-    modal_prop() {
-      if (this.modal_prop) {
+    modal() {
+      if (this.modal) {
         [this.session, this.tutor, this.occurrence] = [null, null, "today"];
         this.session = this.session_prop;
         this.tutor = this.tutors.find(

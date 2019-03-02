@@ -10,6 +10,7 @@
       :day_prop="day_prop"
       :hour_prop="hour_prop"
       :modal="modal"
+      @modified="modified"
     />
     <session-show
       v-else
@@ -69,6 +70,10 @@ export default {
   methods: {
     closeModal() {
       this.$emit("closeModal");
+    },
+    modified(session, action) {
+      this.$emit("modified", session, action);
+      this.closeModal();
     }
   }
 };
