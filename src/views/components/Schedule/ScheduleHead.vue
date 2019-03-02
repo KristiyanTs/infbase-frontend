@@ -97,12 +97,15 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .bg-warning {
   color: white;
   border-radius: 50px;
 }
 tr th {
   border: 0px !important;
+
+  svg { transition: all .1s ease-in-out; }
+  svg:hover { transform: scale(1.3); }
 }
 </style>

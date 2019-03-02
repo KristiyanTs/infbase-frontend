@@ -12,25 +12,19 @@
       </base-button>
       <a
         class="dropdown-item"
-        v-for="days in [3,5,7]"
+        v-for="days in [3, 5, 7]"
         :key="days"
         @click="calendar_scope = days"
       >
-        {{days}} days
+        {{ days }} days
       </a>
     </base-dropdown>
 
     <section v-if="errored">
       <p>We're sorry, we're not able to retrieve this information at the moment, please try back later</p>
     </section>
-    <table
-      class="table text-center"
-      v-else
-    >
-      <ScheduleHead
-        :scope="calendar_scope"
-        @range="changeRange"
-      />
+    <table class="table text-center" v-else>
+      <ScheduleHead :scope="calendar_scope" @range="changeRange" />
       <tbody>
         <ScheduleRow
           v-for="hour in hours"
@@ -47,7 +41,7 @@
       :session_prop="session"
       :day_prop="day"
       :hour_prop="hour"
-      :modal_prop="modal"
+      :modal="modal"
       @closeModal="closeModal"
       @modified="modifySessions"
     />
