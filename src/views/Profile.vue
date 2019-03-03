@@ -2,8 +2,11 @@
   <div class="container col-lg-6 col-xs-10 col-md-8 py-5">
     <card shadow class="card-profile mt-5">
       <h3>Profile</h3>
-      <div class="text-center avatar-image">
-        <img :src="user.avatar" class="rounded-circle" alt="" />
+      <div
+        class="text-center avatar-image"
+        v-if="$store.state.userRole == 'tutor'"
+      >
+        <img :src="avatar" class="rounded-circle" alt="" />
         <div class="middle">
           <base-button type="secondary" @click="show = true"
             >Change avatar
@@ -11,9 +14,8 @@
         </div>
       </div>
       <my-upload
-        @crop-success="cropSuccess"
+        v-if="$store.state.userRole == 'tutor'"
         @crop-upload-success="cropUploadSuccess"
-        @crop-upload-fail="cropUploadFail"
         v-model="show"
         :width="300"
         :height="300"
@@ -59,7 +61,7 @@ export default {
       headers: {
         smail: "*_~"
       },
-      user: null,
+      user: { avatar: "" },
       first_name: null,
       last_name: null,
       biography: null,
@@ -67,6 +69,7 @@ export default {
     };
   },
   beforeMount() {
+    this.avatar = "https://cdn.pixabay.com/photo/2018/09/06/18/26/person-3658927_1280.png";
     this.axios
       .get("/api/profile", {
         headers: { Authorization: window.$cookies.get("jwt") }
@@ -108,7 +111,7 @@ export default {
     },
     cropUploadSuccess(jsonData, field) {
       this.show = false;
-      this.user.avatar = jsonData.avatar;
+      this.avatar = jsonData.avatar;
       this.$store.commit("ADD_ALERT", [
         "Avatar updated successfully!!",
         "success"
@@ -132,6 +135,7 @@ export default {
     text-align: center;
   }
   img {
+    max-height: 300px;
     opacity: 1;
     transition: 0.5s ease;
     backface-visibility: hidden;

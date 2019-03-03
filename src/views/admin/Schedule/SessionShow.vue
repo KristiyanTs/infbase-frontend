@@ -1,33 +1,51 @@
 <template>
-  <modal :show.sync="modal" class="text-left" @close="closeModal">
+  <modal
+    :show.sync="modal"
+    class="text-left"
+    @close="closeModal"
+    modalClasses="wide"
+  >
     <h6 slot="header" class="modal-title" id="modal-title-default">
       Session
     </h6>
 
-    <div v-if="tutor">
-
-      <h3 class="text-center">
-        {{ tutor.first_name }}
-      </h3>
-      <h5 class="text-center text-muted">
-        {{ tutor.biography }}
-      </h5>
-      <div class="text-center">
-        <badge
-          type="success"
-          v-for="(course, idx) in session_prop.courses"
-          :key="idx"
-        >
-          {{ course }}
-        </badge>
+    <div class="row">
+      <div v-if="tutor" class="col">
+        <div class="text-center avatar-image">
+          <img :src="tutor.avatar" class="rounded-circle" alt="" />
+        </div>
+        <h3 class="text-center">
+          {{ tutor.first_name }}
+        </h3>
+        <h5 class="text-center text-muted">
+          {{ tutor.biography }}
+        </h5>
+        <div class="text-center">
+          <badge
+            type="success"
+            v-for="(course, idx) in session_prop.courses"
+            :key="idx"
+          >
+            {{ course }}
+          </badge>
+        </div>
+      </div>
+      <div class="col text-center" v-if="session_prop">
+        <h1>{{ hour_prop.start }} - {{ hour_prop.end }}</h1>
+        <h4 class="text-muted">
+          {{ toFormattedDate(session_prop.start_date.split(".")) }}
+        </h4>
+        <h4 class="text-muted">
+          7.03 Appleton Tower
+        </h4>
       </div>
     </div>
 
-    <template slot="footer">
-      <base-button type="primary" class="ml-auto" @click="closeModal">
+    <template slot="footer" class="text-center">
+      <base-button type="primary" @click="closeModal">
         Ask in advance
       </base-button>
-      <base-button type="secondary" class="ml-auto" @click="closeModal">
+      <base-button type="secondary" @click="closeModal">
         Interested/Going
       </base-button>
       <base-button type="link" class="ml-auto" @click="closeModal">
@@ -80,7 +98,19 @@ export default {
   methods: {
     closeModal() {
       this.$emit("closeModal");
-    }
+    },
+    toFormattedDate(date, format) {
+      date = new Date(Date.UTC(date[0], date[1] - 1, date[2]));
+      let options = {
+        weekday: "short",
+        month: "short",
+        day: "numeric"
+      };
+
+      if (format == "rails") options["year"] = "numeric";
+
+      return date.toLocaleDateString("en-UK", options);
+    },
   },
   computed: {
     dayOfWeek() {

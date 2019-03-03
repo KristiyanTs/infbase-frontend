@@ -9,7 +9,7 @@
     </td>
     <modal :show.sync="modal">
       <h6 slot="header" class="modal-title" id="modal-title-default">
-        >Edit user
+        Edit user
       </h6>
       <div v-if="error">
         {{ error }}
@@ -38,8 +38,8 @@
 
       <template slot="footer">
         <base-button type="primary" @click="saveUser">Save changes</base-button>
-        <base-button type="link" class="ml-auto" @click="modal = false"
-        >Close
+        <base-button type="link" class="ml-auto" @click="modal = false">
+          Close
         </base-button>
       </template>
     </modal>
