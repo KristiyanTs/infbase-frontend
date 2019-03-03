@@ -27,7 +27,8 @@
           <div slot="title" class="dropdown-toggle">
             <i class="fa fa-ellipsis-v"></i>
           </div>
-          <a class="dropdown-item" href="" @click="delete_question(question)">Delete</a>
+          <button class="dropdown-item" @click="delete_question(question)">Delete</button>
+          <button class="dropdown-item" @click="edit_question(answer)">Edit</button>
         </base-dropdown>
       </div>
     </div>
@@ -50,7 +51,8 @@
               <div slot="title" class="dropdown-toggle">
                 <i class="fa fa-ellipsis-v"></i>
               </div>
-              <a class="dropdown-item" href="" @click="delete_answer(answer)">Delete</a>
+              <button class="dropdown-item" @click="delete_answer(answer)">Delete</button>
+              <button class="dropdown-item" @click="edit_answer(answer)">Edit</button>
             </base-dropdown>
           </div>
         </div>
@@ -66,13 +68,13 @@
       <div class="row">
         <div class="col-md-1">Your Answer:</div>
         <div class="col-md-10">
-          <textarea style="min-width: 100%"></textarea>
+          <textarea style="min-width: 100%" v-model="answer_text"></textarea>
         </div>
       </div>
       <div class="row">
         <div class="col-md-1"></div>
         <div class="col">
-          <base-button>Submit</base-button>
+          <base-button @click="submit_answer">Submit</base-button>
         </div>
       </div>
     </div>
@@ -87,11 +89,13 @@
       BaseDropdown
     },
     props: {
-      question_id: String
+      question_id: String,
     },
     data() {
       return {
-        question: {}
+        question: {answers: []},
+        answer_text: "",
+        question_text: ""
       }
     },
     mounted: function () {
@@ -123,7 +127,19 @@
       delete_question: function (question) {
         this.axios.delete('/api/questions/' + question.id);
         this.$router.push({'name': 'faq_index'});
-      }
+      },
+      submit_answer: function () {
+        let self = this;
+        this.axios.post('/api/answers/', {
+          answer: {
+            question_id: this.question_id,
+            body: this.answer_text,
+          }
+        }).then(response => {
+          console.log(response);
+          self.question.answers = [response.data];
+        });
+      },
     }
   };
 </script>
