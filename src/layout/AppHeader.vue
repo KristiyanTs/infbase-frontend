@@ -44,10 +44,7 @@
           <base-button slot="title" type="link" class="dropdown-toggle">
             Account
           </base-button>
-          <router-link
-            class="dropdown-item"
-            :to="'/profile/' + $store.state.userId"
-          >
+          <router-link class="dropdown-item" to="/profile">
             Profile
           </router-link>
           <a class="dropdown-item" href="#" @click="logOut">Log out</a>

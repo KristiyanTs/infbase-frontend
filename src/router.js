@@ -66,7 +66,7 @@ let router = new Router({
       }
     },
     {
-      path: "/profile/:id",
+      path: "/profile",
       name: "profile",
       components: {
         header: AppHeader,
