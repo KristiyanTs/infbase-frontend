@@ -2,8 +2,14 @@
   <div class="container col-lg-6 col-xs-10 col-md-8 py-5">
     <card shadow class="card-profile mt-5">
       <h3>Profile</h3>
-      <label for="avatar">Avatar</label>
-      <img :src="user.avatar" alt="" />
+      <div class="text-center avatar-image">
+        <img :src="user.avatar" class="rounded-circle" alt="" />
+        <div class="middle">
+          <base-button type="secondary" @click="show = true"
+            >Change avatar
+          </base-button>
+        </div>
+      </div>
       <my-upload
         @crop-success="cropSuccess"
         @crop-upload-success="cropUploadSuccess"
@@ -16,9 +22,9 @@
         method="put"
         field="user[avatar]"
         lang-type="en"
-        img-format="png">
+        img-format="png"
+      >
       </my-upload>
-      <img :src="imgDataUrl">
       <br /><br />
       <base-input label="First name" v-model="first_name"></base-input>
       <base-input label="Last name" v-model="last_name"></base-input>
@@ -45,7 +51,7 @@ export default {
   },
   data() {
     return {
-      show: true,
+      show: false,
       params: {
         token: "123456798",
         name: "avatar"
@@ -53,7 +59,6 @@ export default {
       headers: {
         smail: "*_~"
       },
-      imgDataUrl: "", // the datebase64 url of created image
       user: null,
       first_name: null,
       last_name: null,
@@ -86,17 +91,13 @@ export default {
           user: {
             first_name: this.first_name,
             last_name: this.last_name,
-            biography: this.biography,
-            avatar: {
-              name: "avatar",
-              contents: this.imgDataUrl
-            }
+            biography: this.biography
           }
         })
         .then(response => {
           this.user = response.data;
           this.$store.commit("ADD_ALERT", [
-            "Your account was successfullu updated!",
+            "Your account was successfully updated!",
             "success"
           ]);
         })
@@ -105,23 +106,43 @@ export default {
         })
         .finally(() => (this.loading = false));
     },
-    toggleShow() {
-      this.show = !this.show;
-    },
-    cropSuccess(imgDataUrl, field){
-      console.log('-------- crop success --------');
-      this.imgDataUrl = imgDataUrl;
-    },
-    cropUploadSuccess(jsonData, field){
-      console.log('-------- upload success --------');
-      console.log(jsonData);
-      console.log('field: ' + field);
-    },
-    cropUploadFail(status, field){
-      console.log('-------- upload fail --------');
-      console.log(status);
-      console.log('field: ' + field);
+    cropUploadSuccess(jsonData, field) {
+      this.show = false;
+      this.user.avatar = jsonData.avatar;
+      this.$store.commit("ADD_ALERT", [
+        "Avatar updated successfully!!",
+        "success"
+      ]);
     }
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.avatar-image {
+  position: relative;
+  .middle {
+    transition: 0.5s ease;
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  img {
+    opacity: 1;
+    transition: 0.5s ease;
+    backface-visibility: hidden;
+  }
+}
+.avatar-image:hover {
+  img {
+    opacity: 0.3;
+  }
+  .middle {
+    opacity: 1;
+  }
+}
+</style>
