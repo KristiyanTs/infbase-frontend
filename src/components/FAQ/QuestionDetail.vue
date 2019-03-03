@@ -5,7 +5,7 @@
     </div>
     <div class="row">
       <div class="tags" v-for="topic in question.topics">
-        <a href="#" class="badge badge-pill badge-primary">{{topic.name}}</a>
+        <a href="" class="badge badge-pill badge-primary">{{topic.name}}</a>
       </div>
     </div>
     <div class="row">
@@ -13,12 +13,22 @@
         <div class="mini-counts"><span>{{question.votes}}</span></div>
         <div>{{question.votes | pluralize('vote') }}</div>
 
-        <button type="button" class="btn btn-outline-default " v-if="!question.voted" v-on:click="upvote"><i class="fa fa-plus">1</i>
+        <button type="button" class="btn btn-outline-default " v-if="!question.voted" v-on:click="upvote"><i
+                class="fa fa-plus">1</i>
         </button>
-        <button type="button" class="btn btn-success" v-else v-on:click="remove_vote"><i class="fa fa-check"></i></button>
+        <button type="button" class="btn btn-success" v-else v-on:click="remove_vote"><i class="fa fa-check"></i>
+        </button>
       </div>
-      <div class="col-md-8">
+      <div class="col-md-10">
         {{question.body}}
+      </div>
+      <div class="col" v-if="$store.state.userRole!='student'">
+        <base-dropdown>
+          <div slot="title" class="dropdown-toggle">
+            <i class="fa fa-ellipsis-v"></i>
+          </div>
+          <a class="dropdown-item" href="" @click="delete_question(question)">Delete</a>
+        </base-dropdown>
       </div>
     </div>
     <div class="row question-end">
@@ -32,8 +42,16 @@
       <div v-for="answer in question.answers">
         <div class="row">
           <div class="col-md-1"></div>
-          <div class="col">
+          <div class="col-md-10">
             {{answer.body}}
+          </div>
+          <div class="col" v-if="$store.state.userRole!='student'">
+            <base-dropdown>
+              <div slot="title" class="dropdown-toggle">
+                <i class="fa fa-ellipsis-v"></i>
+              </div>
+              <a class="dropdown-item" href="" @click="delete_answer(answer)">Delete</a>
+            </base-dropdown>
           </div>
         </div>
         <div class="row answer">
@@ -47,7 +65,7 @@
     <div v-else>
       <div class="row">
         <div class="col-md-1">Your Answer:</div>
-        <div class="col">
+        <div class="col-md-10">
           <textarea style="min-width: 100%"></textarea>
         </div>
       </div>
@@ -59,11 +77,15 @@
       </div>
     </div>
   </div>
-
 </template>
 <script>
+  import BaseDropdown from "../BaseDropdown";
+
   export default {
     name: "question-detail",
+    components: {
+      BaseDropdown
+    },
     props: {
       question_id: String
     },
@@ -79,7 +101,7 @@
       upvote: function () {
         this.question.votes += 1;
         this.question.voted = true;
-        this.axios.post('/api/questions/' + this.question_id + '/vote_for' )
+        this.axios.post('/api/questions/' + this.question_id + '/vote_for')
       },
       remove_vote: function () {
         this.question.votes -= 1;
@@ -88,9 +110,19 @@
       },
       fetchData: function () {
         let v = this;
-        this.axios.get('/api/questions/' + this.question_id ).then(function (response) {
+        this.axios.get('/api/questions/' + this.question_id).then(function (response) {
           v.question = response.data;
         });
+      },
+      delete_answer: function (answer) {
+        this.axios.delete('/api/answers/' + answer.id);
+        this.question.answers = this.question.answers.filter(function (value, index, arr) {
+          return answer != value;
+        });
+      },
+      delete_question: function (question) {
+        this.axios.delete('/api/questions/' + question.id);
+        this.$router.push({'name': 'faq_index'});
       }
     }
   };
