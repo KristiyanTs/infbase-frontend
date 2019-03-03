@@ -10,44 +10,29 @@
     </h6>
 
     <div class="row">
-      <div v-if="tutor" class="col">
-        <div class="text-center avatar-image">
-          <img :src="tutor.avatar" class="rounded-circle" alt="" />
-        </div>
-        <h3 class="text-center">
-          {{ tutor.first_name }}
-        </h3>
-        <h5 class="text-center text-muted">
-          {{ tutor.biography }}
-        </h5>
-        <div class="text-center">
-          <badge
-            type="success"
-            v-for="(course, idx) in session_prop.courses"
-            :key="idx"
-          >
-            {{ course }}
-          </badge>
-        </div>
-      </div>
+      <tutor-info :tutor="tutor" />
       <div class="col text-center" v-if="session_prop">
-        <h1>{{ hour_prop.start }} - {{ hour_prop.end }}</h1>
+        <h3>{{ hour_prop.start }} - {{ hour_prop.end }}</h3>
         <h4 class="text-muted">
           {{ toFormattedDate(session_prop.start_date.split(".")) }}
         </h4>
         <h4 class="text-muted">
           7.03 Appleton Tower
         </h4>
+        <base-button type="primary w-100 my-3" @click="closeModal">
+          Ask in advance
+        </base-button>
+        <base-button
+          type="secondary w-100"
+          @click="submitInterested"
+          :disabled="isInterested"
+        >
+          Interested/Going
+        </base-button>
       </div>
     </div>
 
     <template slot="footer" class="text-center">
-      <base-button type="primary" @click="closeModal">
-        Ask in advance
-      </base-button>
-      <base-button type="secondary" @click="closeModal">
-        Interested/Going
-      </base-button>
       <base-button type="link" class="ml-auto" @click="closeModal">
         Close
       </base-button>
@@ -57,9 +42,12 @@
 
 <script>
 import Modal from "@/components/Modal";
+import TutorInfo from "@/views/components/TutorInfo";
+
 export default {
   components: {
-    Modal
+    Modal,
+    TutorInfo
   },
   props: {
     session_prop: {
@@ -81,6 +69,11 @@ export default {
       type: Object,
       default: () => {},
       description: "Hour object of the session slot"
+    },
+    interests: {
+      type: Array,
+      default: () => [],
+      description: "Array of student interests"
     },
     modal: {
       type: [String, Boolean],
@@ -111,6 +104,20 @@ export default {
 
       return date.toLocaleDateString("en-UK", options);
     },
+    submitInterested() {
+      this.axios
+        .post("/api/interests", {
+          headers: { Authorization: window.$cookies.get("jwt") },
+          interest: { teaching_session_id: this.session_prop.id }
+        })
+        .then(response => {
+          this.interests = response.data;
+          this.$store.commit("ADD_ALERT", [
+            "You showed interest in a session",
+            "success"
+          ]);
+        });
+    }
   },
   computed: {
     dayOfWeek() {
@@ -119,6 +126,12 @@ export default {
           weekday: "long"
         });
       else return false;
+    },
+    isInterested() {
+      let session_id = this.session_prop.id;
+      return this.interests.find(
+        interest => interest.teaching_session_id == session_id
+      );
     }
   },
   watch: {

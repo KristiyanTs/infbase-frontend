@@ -20,6 +20,7 @@
       :day_prop="day_prop"
       :hour_prop="hour_prop"
       :modal="modal"
+      :interests="interests"
     />
   </span>
 </template>
@@ -53,6 +54,11 @@ export default {
       type: Object,
       default: () => {},
       description: "Hour object of the session slot"
+    },
+    interests: {
+      type: Array,
+      default: () => [],
+      description: "Student interests"
     },
     modal: {
       type: [Boolean, String],

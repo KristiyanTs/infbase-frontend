@@ -6,7 +6,11 @@
         class="text-center avatar-image"
         v-if="$store.state.userRole == 'tutor'"
       >
-        <img :src="avatar" class="rounded-circle" alt="" />
+        <img
+          :src="avatar"
+          class="rounded-circle shadow shadow-lg--hover"
+          alt=""
+        />
         <div class="middle">
           <base-button type="secondary" @click="show = true"
             >Change avatar
