@@ -51,7 +51,6 @@ export default {
       report: { topics: [] },
       loading: true,
       errored: false,
-      report_topics: [],
       topics: []
     };
   },
