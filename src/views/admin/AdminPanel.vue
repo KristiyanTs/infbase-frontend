@@ -34,6 +34,16 @@
           to="/admin-panel/expertises"
           class="nav-link mb-1"
         >Expertises</router-link>
+        <router-link
+                v-if="userRole == 'tutor'"
+                to="/admin-panel/questions"
+                class="nav-link mb-1"
+        >Questions</router-link>
+        <router-link
+                v-if="userRole == 'admin'"
+                to="/admin-panel/question_summaries"
+                class="nav-link mb-1"
+        >Questions</router-link>
       </div>
       <fade-transition
         mode="out-in"
