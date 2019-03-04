@@ -18,11 +18,7 @@
 
       <ul class="navbar-nav ml-lg-auto">
         <li class="nav-item">
-          <router-link
-            v-if="!signedIn"
-            to="/login"
-            class="btn btn-neutral btn-link"
-          >
+          <router-link v-if="!signedIn" to="/login" class="btn btn-secondary">
             <span class="nav-link-inner--text">Log in</span>
           </router-link>
           <router-link

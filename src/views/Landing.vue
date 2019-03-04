@@ -36,14 +36,20 @@
         </div>
       </section>
     </div>
-    <div class="position-relative" v-else>
+    <div class="position-relative" :class="{ 'mt--300': !$store.state.userId }">
       <section class="section section-lg">
         <div class="container">
           <card class="border-0" shadow body-classes="py-2">
             <p class="lead text-muted">
               InfBase is in room 7.03 of Appleton tower
             </p>
-            <session-schedule :scope="3"/>
+            <session-schedule :scope="3" v-if="$store.state.userId" />
+            <div v-else class="text-center my-5">
+              <base-button type="primary" outline tag="a" href="/login"
+                >Log in</base-button
+              >
+              to see the <b>schedule</b>.
+            </div>
           </card>
         </div>
       </section>
@@ -132,8 +138,11 @@
             <h2 class="display-3">The amazing Team</h2>
           </div>
         </div>
-        <div class="row">
+        <div class="row" v-if="$store.state.userId">
           <tutor-info v-for="tutor in tutors" :tutor="tutor" :key="tutor.id"/>
+        </div>
+        <div v-else class="text-center">
+          <base-button type="primary" tag="a" outline href="/login">Log in</base-button> to see the <b>tutors</b>.
         </div>
       </div>
     </section>
