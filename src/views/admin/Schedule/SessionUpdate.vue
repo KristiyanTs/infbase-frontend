@@ -17,7 +17,7 @@
       Today only
     </base-radio>
     <base-radio name="weekly" class="mt-3" v-model="occurrence">
-      <div class="d-inline-block">Weekly on {{ dayOfWeek }} until</div>
+      <div class="d-inline-block">Recurring on {{ dayOfWeek }} until</div>
       <flat-picker :config="{}" class="form-control datepicker" v-model="until">
       </flat-picker>
     </base-radio>
