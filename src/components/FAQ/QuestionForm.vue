@@ -194,7 +194,7 @@ export default {
         this.form_validity.title = this.form_data.question.title ? null : false;
         this.form_validity.body = this.form_data.question.body ? null : false;
         this.form_validity.course = this.form_data.question.course ? null : false;
-        this.form_validity.interest = this.form_data.interest >= 0 ? null : false;
+        this.form_validity.interest = (this.form_data.interest >= 0 && this.form_data.interest != null)  ? null : false;
         this.form_validity.answer = this.form_data.answer ? null : false;
       }
     },
