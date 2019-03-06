@@ -5,7 +5,7 @@
       <SessionSlot
         :hour="hour"
         :day="day"
-        :session_prop="findSession(day.join('.'))"
+        :session="findSession(day.join('.'))"
         @clicked="emitClick"
       />
     </td>
@@ -45,8 +45,8 @@ export default {
         session => session.hour_id == hour_id && session.start_date == day
       );
     },
-    emitClick(session_prop, day, hour) {
-      this.$emit("clicked", session_prop, day, hour);
+    emitClick(session, day, hour) {
+      this.$emit("clicked", session, day, hour);
     }
   },
   computed: {

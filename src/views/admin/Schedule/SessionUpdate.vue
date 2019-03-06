@@ -146,7 +146,7 @@ export default {
   computed: {
     dayOfWeek() {
       if (this.day_prop)
-        return new Date(...this.day_prop).toLocaleDateString("en-uk", {
+        return new Date(this.day_prop).toLocaleDateString("en-uk", {
           weekday: "long"
         });
       else return 0;
@@ -155,11 +155,13 @@ export default {
   watch: {
     modal() {
       if (this.modal) {
-        [this.session, this.tutor, this.occurrence] = [null, null, "today"];
+        [this.session, this.tutor, this.occurrence] = [{}, {}, "today"];
         this.session = this.session_prop;
-        this.tutor = this.tutors.find(
-          tutor => tutor.id == this.session.tutor_id
-        );
+        if (this.session) {
+          this.tutor = this.tutors.find(
+            tutor => tutor.id == this.session.tutor_id
+          );
+        }
       }
     }
   }

@@ -35,7 +35,7 @@
           :sessions="sessions"
           :hour="hour"
           :range="calendar_range"
-          @clicked="session_clicked"
+          @clicked="sessionClicked"
         />
       </tbody>
     </table>
@@ -163,15 +163,14 @@ export default {
       else if (action == "updated") this.sessions.splice(idx, 1, session);
       else this.sessions.splice(idx, 1);
     },
-    session_clicked(){
-      if (this.on_select == null){
-        this.openModal(arguments);
+    sessionClicked(session, day, hour) {
+      if (this.on_select == null) {
+        this.openModal(session, day, hour);
       } else {
         this.on_select(arguments);
       }
     },
     openModal(session, day, hour) {
-      console.log(session);
       [this.session, this.day, this.hour] = [session, day, hour];
       this.modal = true;
     },

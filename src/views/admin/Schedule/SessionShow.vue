@@ -122,7 +122,7 @@ export default {
   computed: {
     dayOfWeek() {
       if (this.day_prop)
-        return new Date(...this.day_prop).toLocaleDateString("en-uk", {
+        return new Date(this.day_prop).toLocaleDateString("en-uk", {
           weekday: "long"
         });
       else return false;
