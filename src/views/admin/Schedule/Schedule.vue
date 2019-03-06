@@ -21,7 +21,10 @@
     </base-dropdown>
 
     <section v-if="errored">
-      <p>We're sorry, we're not able to retrieve this information at the moment, please try back later</p>
+      <p>
+        We're sorry, we're not able to retrieve this information at the moment,
+        please try back later.
+      </p>
     </section>
     <table class="table text-center" v-else>
       <ScheduleHead :scope="calendar_scope" @range="changeRange" />
@@ -168,6 +171,7 @@ export default {
       }
     },
     openModal(session, day, hour) {
+      console.log(session);
       [this.session, this.day, this.hour] = [session, day, hour];
       this.modal = true;
     },
