@@ -220,7 +220,6 @@ export default {
       }
     },
     session_selected: function(event) {
-      console.log(arguments[0]);
       this.session_modal_open = false;
       this.form_data.question.teaching_session_id = event[0].id;
       this.selected_session_start = event[2].start + " " + event[0].start_date;

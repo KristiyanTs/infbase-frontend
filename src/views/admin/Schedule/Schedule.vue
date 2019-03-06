@@ -45,7 +45,6 @@
       :day_prop="day"
       :hour_prop="hour"
       :modal="modal"
-      :interests="interests"
       @closeModal="closeModal"
       @modified="modifySessions"
     />
@@ -89,8 +88,7 @@ export default {
       tutors: [],
       session: null,
       day: null,
-      hour: null,
-      interests: null
+      hour: null
     };
   },
   mounted() {
@@ -121,16 +119,6 @@ export default {
         this.errored = true;
       })
       .finally(() => (this.loading = false));
-
-    // get interests if a student
-    if (this.$store.state.userRole == "student")
-      this.axios
-        .get("/api/interests", {
-          headers: { Authorization: window.$cookies.get("jwt") }
-        })
-        .then(response => {
-          this.interests = response.data;
-        });
   },
   methods: {
     getSessionsInRange(calendar_range) {
@@ -183,8 +171,9 @@ export default {
 
 <style scoped>
 table >>> th,
-table tr td {
+table >>> tr td {
   padding: 0px;
+  min-height: 50px;
   display: flex;
   justify-content: center; /* align horizontal */
   align-items: center; /* align vertical */

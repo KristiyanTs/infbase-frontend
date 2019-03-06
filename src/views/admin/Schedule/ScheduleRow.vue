@@ -1,5 +1,5 @@
 <template>
-  <tr class="row" v-if="anySessions || $store.state.userRole == 'admin'">
+  <tr class="row">
     <td class="col-1">{{ hour.start }}</td>
     <td class="col" v-for="day in range" :key="day[2]">
       <SessionSlot
