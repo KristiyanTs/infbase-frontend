@@ -2,8 +2,9 @@
   <div>
     <h4 class="text-primary mb-5 d-inline-block">My expertise</h4>
     <base-button
+      outline
       @click="modal = true"
-      class="float-right d-inline-block"
+      class="float-right d-inline-block btn-sm"
       type="primary"
     >Add expertise</base-button>
     <section v-if="errored">

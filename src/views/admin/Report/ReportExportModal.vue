@@ -83,7 +83,11 @@ export default {
     exportCsv() {
       this.axios
         .get("/api/admin/reports/export_csv", {
-          headers: { Authorization: window.$cookies.get("jwt") }
+          headers: { Authorization: window.$cookies.get("jwt") },
+          params: {
+            start_date: this.start_date,
+            end_date: this.end_date
+          }
         })
         .then(response => {
           this.csv = response.data;
